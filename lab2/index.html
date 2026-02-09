@@ -6,23 +6,43 @@
     <style>
         body {
             margin-left: 30px;
+            font-family: sans-serif, Arial, Helvetica;
             background-color: beige;
         }
 
         hr {
-            border-color: powderblue;
+            border: 1px dashed cornflowerblue;
         }
+
+        table, th {
+            border: 2px dashed cornflowerblue;
+        }
+
+        dt {
+            font-weight: bold;
+        }
+
+        .submit1 {
+            background-color: cornflowerblue;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 5px 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+
     </style>
 </head>
 <body>
-<h1>This is lab2</h1>
+<h1>This is <strong>lab 2</strong></h1>
 <a href="https://cpit405.gitlab.io"><p>course site</p></a>
 <hr>
 <p>it is about the basic common html elements</p>
 <a href="https://www.kau.edu.sa/ar">
     <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIahQfG1SjUvNLOnKSAD2GvzWBXd0puysJMA&s"
-        alt="kau icon">
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIahQfG1SjUvNLOnKSAD2GvzWBXd0puysJMA&s"
+            alt="kau icon">
 </a>
 <p>we can add several effects to text in html including: <strong>strength</strong></p>
 <p>also <em>emphasis</em></p>
@@ -52,5 +72,50 @@ strong for strength
     <li>h5</li>
     <li>h6</li>
 </ol>
+
+<hr>
+<dl>
+    <dt>HTML</dt>
+    <dd>for frontend structuring</dd>
+    <dt>CSS</dt>
+    <dd>for frontend styling</dd>
+    <dt>Javascript</dt>
+    <dd>for frontend programming</dd>
+    <dt>PHP</dt>
+    <dd>for backend</dd>
+</dl>
+<hr>
+<table>
+    <tr>
+        <th>Basics</th>
+        <th>Front-end Frameworks</th>
+        <th>Server-side frameworks</th>
+    </tr>
+    <tr>
+        <td>HTML</td>
+        <td>React</td>
+        <td>Spring</td>
+    </tr>
+    <tr>
+        <td>CSS</td>
+        <td>Angular</td>
+        <td>Django</td>
+    </tr>
+    <tr>
+        <td>JS</td>
+        <td>Vue</td>
+        <td>Laravel</td>
+    </tr>
+</table>
+<hr>
+<form>
+    <label for="name">name:</label>
+    <br>
+    <input type="text" id="name" name="name"><br><br>
+    <label for="password">password:</label>
+    <br>
+    <input type="password" id="password" name="password"><br><br>
+    <input type="submit" class="submit1" value="Submit">
+</form>
 </body>
 </html>
