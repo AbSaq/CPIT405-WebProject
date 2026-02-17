@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>CPIT-405 lab 2</title>
+    <style>
+        body {
+            margin-left: 30px;
+            font-family: sans-serif, Arial, Helvetica;
+            background-color: beige;
+        }
+
+        hr {
+            border: 1px dashed cornflowerblue;
+        }
+
+        table, th {
+            border: 2px dashed cornflowerblue;
+        }
+
+        dt {
+            font-weight: bold;
+        }
+
+        .image-preview {
+            display: inline-block;
+            border: 20px solid;
+            border-color: cornflowerblue palevioletred greenyellow bisque;
+        }
+
+        p > span {
+            color: red;
+        }
+
+        #header span {
+            color: pink;
+        }
+
+        span {
+            color: green;
+        }
+
+        #header *:last-child {
+            color: orange;
+        }
+
+        #header span:first-child:hover {
+            color: blue;
+        }
+
+    </style>
+</head>
+<body>
+<h1>This is <strong>lab 3</strong></h1>
+<a href="https://cpit405.gitlab.io"><p>course site</p></a>
+<hr>
+<div class="image-preview">
+    <img src='https://cpit405.gitlab.io/images/KAU_logo.png' alt="kau icon">
+</div>
+
+<hr>
+
+<div id="header">
+    <span class="myclass1">Every</span>
+    <span class="myclass2">one can</span>
+    <span class="myclass3">success.</span>
+</div>
+<p> One machine can do the work of fifty ordinary men.
+    <span class="myclass4">No machine can do the work of one extraordinary man.</span>
+</p>
+
+<hr>
+
+<table>
+    <tr>
+        <th></th>
+        <th>default</th>
+        <th>hovering</th>
+    </tr>
+    <tr>
+        <td><strong>span.myclass1</strong></td>
+        <td>pink</td>
+        <td>blue</td>
+    </tr>
+    <tr>
+        <td><strong>span.myclass2</strong></td>
+        <td>pink</td>
+        <td>pink</td>
+    </tr>
+    <tr>
+        <td><strong>span.myclass3</strong></td>
+        <td>orange</td>
+        <td>orange</td>
+    </tr>
+    <tr>
+        <td><strong>span.myclass4</strong></td>
+        <td>red</td>
+        <td>red</td>
+    </tr>
+</table>
+
+<hr>
+
+</body>
+</html>
