@@ -1,0 +1,47 @@
+.portfolio {
+    margin: 40px;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #fcfaf2;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+.portfolio__user {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.portfolio__section {
+    font-weight: bold;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.portfolio__divider {
+    border: 0;
+    border-top: 2px solid powderblue;
+    margin: 20px 0;
+    width: 100px;
+}
+
+.portfolio__list {
+    list-style: none;
+    padding: 0;
+}
+
+.portfolio__item {
+    margin-bottom: 10px;
+}
+
+.portfolio__link {
+    text-decoration: none;
+    color: #2c3e50;
+    transition: color 0.3s ease;
+}
+
+.portfolio__link:hover {
+    color: #e74c3c;
+    text-decoration: underline;
+}
