@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 6: Likes & Dislikes</title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body>
+<h1>Lab 6</h1>
+<div>
+    <h2>Like or Dislike</h2>
+    <div>
+        <button id="like" class="button">Like</button>
+        <button id="dislike" class="button">Dislike</button>
+    </div>
+    <div style="display: flex; flex-direction: column">
+        <label for="comment_input">comment:</label>
+        <textarea name="comment" id="comment_input" placeholder="Write your comment here" cols="30"
+                  rows="10"></textarea>
+    </div>
+    <div>
+        <button class="button button--primary" id="submit">Submit</button>
+        <button class="button button--primary" id="clear">Clear</button>
+    </div>
+    <ul id="comment_section">
+
+    </ul>
+</div>
+<script>
+    var likes = 100;
+    var dislikes = 200;
+    var comments = [];
+
+
+    var like_btn = document.getElementById("like");
+    var dislike_btn = document.getElementById("dislike");
+
+    var submit_btn = document.getElementById("submit");
+    var clear_btn = document.getElementById("clear");
+
+    var comm_section = document.getElementById("comment_section");
+    var comm_input = document.getElementById("comment_input");
+
+    function getCookie(name) {
+        let cookieArr = document.cookie.split(";");
+
+        for (let i in cookieArr) {
+            let cookiePair = cookieArr[i].split("=");
+            if (name === cookiePair[0].trim()) {
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        return null;
+    }
+
+    const btns = [null,
+        {name: "Likes", emoji: "👍", btn: like_btn, count: likes},
+        {name: "Dislikes", emoji: "👎", btn: dislike_btn, count: dislikes}
+    ];
+    var current_choice_index = 0;
+    update_buttons(Number(getCookie("choice") || 0))
+
+    function update_comment_section() {
+        let comments_html = "";
+        for (com of comments) {
+            let rating = com.rating;
+            let value = com.comment;
+            if (value.length !== 0) {
+                comments_html += `<li>rating:${rating}
+comment:${value}</li>`
+            }
+        }
+        comm_section.innerHTML = comments_html;
+    }
+
+    function select_button(choice) {
+        choice.count++;
+        choice.btn.style.fontWeight = "bold";
+        choice.btn.innerText = choice.name + " (" + choice.count + ")"
+    }
+
+    function unselect_button(choice) {
+        choice.count--;
+        choice.btn.style.fontWeight = "";
+        choice.btn.innerText = choice.name + " (" + choice.count + ")"
+    }
+
+    function update_buttons_text() {
+        btns[1].btn.innerText = btns[1].emoji + " " + btns[1].name + " (" + btns[1].count + ")"
+        btns[2].btn.innerText = btns[2].emoji + " " + btns[2].name + " (" + btns[2].count + ")"
+    }
+
+    function update_buttons(new_choice_index) {
+        if (new_choice_index === 0) {
+            update_buttons_text()
+            return
+        }
+        let choice = btns[new_choice_index];
+
+        if (current_choice_index === new_choice_index) {
+            unselect_button(choice);
+            current_choice_index = 0;
+            document.cookie = "choice=" + current_choice_index;
+        } else {
+            if (current_choice_index !== 0) {
+                unselect_button(btns[current_choice_index])
+            }
+            select_button(choice);
+            current_choice_index = new_choice_index;
+            document.cookie = "choice=" + current_choice_index;
+        }
+        update_buttons_text();
+    }
+
+    update_comment_section();
+
+    like_btn.addEventListener("click", () => {
+        update_buttons(1)
+    });
+    dislike_btn.addEventListener("click", () => {
+        update_buttons(2)
+    });
+    submit_btn.addEventListener("click", () => {
+        if (comm_input.value) {
+            comments.push({rating: btns[current_choice_index].emoji, comment: comm_input.value});
+        }
+        comm_input.value = "";
+        update_comment_section();
+    });
+    clear_btn.addEventListener("click", () => {
+        comm_input.value = "";
+        update_buttons(0);
+        update_comment_section();
+    });
+
+
+</script>
+</body>
+</html>
