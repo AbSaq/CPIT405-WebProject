@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Lab 6: Likes & Dislikes</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h1>Lab 6</h1>
@@ -29,8 +30,9 @@
 <script>
     var likes = 100;
     var dislikes = 200;
-    var comments = [];
 
+    var savedComments = getCookie("user_comments");
+    var comments = savedComments ? JSON.parse(savedComments) : [];
 
     var like_btn = document.getElementById("like");
     var dislike_btn = document.getElementById("dislike");
@@ -62,12 +64,15 @@
 
     function update_comment_section() {
         let comments_html = "";
-        for (com of comments) {
-            let rating = com.rating;
-            let value = com.comment;
-            if (value.length !== 0) {
-                comments_html += `<li>rating:${rating}
-comment:${value}</li>`
+        for (let com of comments) {
+            if (com.comment.length !== 0) {
+                comments_html += `
+                <li class="comment-card">
+                    <div class="comment-rating">${com.rating}</div>
+                    <div class="comment-content">
+                        <p class="comment-text">${com.comment}</p>
+                    </div>
+                </li>`;
             }
         }
         comm_section.innerHTML = comments_html;
@@ -75,25 +80,42 @@ comment:${value}</li>`
 
     function select_button(choice) {
         choice.count++;
-        choice.btn.style.fontWeight = "bold";
+
         choice.btn.innerText = choice.name + " (" + choice.count + ")"
+
+        choice.btn.style.fontWeight = "800";
+        choice.btn.style.backgroundColor = "var(--accent)";
+        choice.btn.style.color = "var(--bg-color)";
+        choice.btn.style.borderColor = "var(--accent)";
     }
 
     function unselect_button(choice) {
         choice.count--;
-        choice.btn.style.fontWeight = "";
+
         choice.btn.innerText = choice.name + " (" + choice.count + ")"
+
+        choice.btn.style.fontWeight = "";
+        choice.btn.style.backgroundColor = "";
+        choice.btn.style.color = "";
+        choice.btn.style.borderColor = "";
+
+
     }
 
-    function update_buttons_text() {
+    function refresh_buttons_text() {
         btns[1].btn.innerText = btns[1].emoji + " " + btns[1].name + " (" + btns[1].count + ")"
         btns[2].btn.innerText = btns[2].emoji + " " + btns[2].name + " (" + btns[2].count + ")"
     }
 
     function update_buttons(new_choice_index) {
         if (new_choice_index === 0) {
-            update_buttons_text()
-            return
+            if (current_choice_index !== 0) {
+                unselect_button(btns[current_choice_index]);
+                current_choice_index = 0;
+                document.cookie = "choice=0";
+            }
+            refresh_buttons_text();
+            return;
         }
         let choice = btns[new_choice_index];
 
@@ -109,7 +131,7 @@ comment:${value}</li>`
             current_choice_index = new_choice_index;
             document.cookie = "choice=" + current_choice_index;
         }
-        update_buttons_text();
+        refresh_buttons_text();
     }
 
     update_comment_section();
@@ -122,13 +144,17 @@ comment:${value}</li>`
     });
     submit_btn.addEventListener("click", () => {
         if (comm_input.value) {
-            comments.push({rating: btns[current_choice_index].emoji, comment: comm_input.value});
+            let ratingIcon = current_choice_index === 0 ? "💬" : btns[current_choice_index].emoji;
+            comments.push({rating: ratingIcon, comment: comm_input.value});
+            document.cookie = "user_comments=" + encodeURIComponent(JSON.stringify(comments))
         }
         comm_input.value = "";
         update_comment_section();
     });
     clear_btn.addEventListener("click", () => {
         comm_input.value = "";
+        comments = [];
+        document.cookie = "user_comments=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         update_buttons(0);
         update_comment_section();
     });
