@@ -2,23 +2,97 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdulrahman Salem | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="portfolio">
-    <div class="portfolio__header">
-        <p class="portfolio__user"><strong>Abdulrahman Salem Akeel (2237252)</strong></p>
-        <span class="portfolio__section">SECTION: IT1</span>
-    </div>
+<body>
+<header>
+    <h1>Abdulrahman Salem bin Akeel</h1>
+    <p>Student ID: 2237252 | Section: IT1</p>
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Home/CV</a></li>
+            <li><a href="labs.html">Labs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <hr class="portfolio__divider">
+<main>
+    <section id="about-card">
+        <div class="profile-header">
+            <img src="media/potray.jpg" alt="Abdulrahman Salem" class="profile-img">
+            <div class="profile-text">
+                <h2>Welcome</h2>
+                <p>I am a student at King Abdulaziz University, Faculty of Computing & Information Technology...</p>
+            </div>
+        </div>
+    </section>
 
-    <ul class="portfolio__list">
-        <li class="portfolio__item"><a href="lab2/" class="portfolio__link">lab2</a></li>
-        <li class="portfolio__item"><a href="lab3/" class="portfolio__link">lab3</a></li>
-        <li class="portfolio__item"><a href="lab4/" class="portfolio__link">lab4</a></li>
-        <li class="portfolio__item"><a href="lab5/" class="portfolio__link">lab5</a></li>
-        <li class="portfolio__item"><a href="lab6/" class="portfolio__link">lab6</a></li>
-    </ul>
+    <section id="cv">
+        <h2>Curriculum Vitae</h2>
+
+        <div class="modern-grid">
+            <article class="modern-card">
+                <h3><i class="fas fa-link"></i> Connect</h3>
+                <div class="contact-links-list">
+                    <div class="link-item">
+                        <span class="link-label">Email</span>
+                        <a href="mailto:your-email@stu.kau.edu.sa"><i class="fas fa-envelope"></i>
+                            aaqeel0014@stu.kau.edu.sa</a>
+                    </div>
+                    <div class="link-item">
+                        <span class="link-label">GitHub</span>
+                        <a href="https://www.linkedin.com/in/abdulrahman-akeel/" target="_blank"><i
+                                class="fab fa-github"></i> abdulrahman-akeel</a>
+                    </div>
+                    <div class="link-item">
+                        <span class="link-label">LinkedIn</span>
+                        <a href="https://github.com/AbSaq" target="_blank"><i class="fab fa-linkedin"></i> AbSaq</a>
+                    </div>
+                    <div class="link-item">
+                        <span class="link-label">Phone</span>
+                        <a href="tel:+966500000000"><i class="fas fa-phone-alt"></i> +966 50 000 0000</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="modern-card">
+                <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                <div class="edu-details">
+                    <h4>B.S. in Information Technology</h4>
+                    <p>King Abdulaziz University<br> Expected 2026</p>
+                </div>
+            </article>
+
+            <article class="modern-card">
+                <h3><i class="fas fa-tools"></i> Technical Skills</h3>
+                <div class="skill-tags">
+                    <span class="badge badge--done">HTML5 / CSS3</span>
+                    <span class="badge badge--done">JavaScript</span>
+                    <span class="badge badge--done">React</span>
+                    <span class="badge badge--done">Rust</span>
+                    <span class="badge badge--done">UI/UX Design</span>
+                    <span class="badge badge--done">Git / GitHub</span>
+                </div>
+            </article>
+
+            <article class="modern-card">
+                <h3><i class="fas fa-trophy"></i> Achievements</h3>
+                <div class="achievement-details">
+                    <p>Currently developing a professional portfolio for CPIT-405, focusing on semantic architecture and
+                        modern responsive design.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Abdulrahman Salem bin Akeel. All Rights Reserved.</p>
+</footer>
 </body>
 </html>
