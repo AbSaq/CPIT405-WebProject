@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 7: News Search API | Image Collection Search</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header>
+    <h1>Lab 7: API Collection Search</h1>
+</header>
+
+<main>
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label for="query">Enter keyword</label>
+        <input id="query" type="text" placeholder="keywords here...">
+    </div>
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+        <button onclick="searchXHR()" class="button button--primary">Search (XHR)</button>
+        <button onclick="searchPromise()" class="button">Search (Promise)</button>
+        <button onclick="searchAwait()" class="button">Search (Async/Await)</button>
+    </div>
+
+    <h3 style="margin-bottom: 1rem;">Results</h3>
+    <div id="result" class="modern-grid">
+        <div class="modern-card" style="text-align: center; justify-content: center; min-height: 200px;">
+            <p style="color: var(--text-muted);">Enter a keyword to see collections</p>
+        </div>
+    </div>
+</main>
+
+<script>
+    url = "https://api.unsplash.com/search/collections"
+    accessKey = "Client-ID cAxC8rSvp5ayci29c2-NWTPf3k_vYPuZ-fDpcJHnYiY"
+    let queryElement = document.getElementById("query")
+    let resultElement = document.getElementById("result")
+
+    function parseResults(results) {
+        resultElement.innerHTML = "";
+
+
+        for (let result of results) {
+            const imageUrl = result.cover_photo?.urls?.regular;
+            const altText = result.cover_photo?.alt_description || result.title;
+
+            let card = document.createElement("div")
+            card.className = "modern-card"
+            card.style.padding = "0";
+            card.style.overflow = "hidden";
+
+            card.innerHTML = `
+                    <img src="${imageUrl}" alt="${altText}" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 1.5rem;">
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">${altText}</p>
+                    </div>
+                `
+            resultElement.appendChild(card)
+        }
+    }
+
+    function searchXHR() {
+        let value = queryElement.value;
+        const params = new URLSearchParams({
+            query: value
+        });
+
+        let xhr = new XMLHttpRequest()
+        xhr.open('GET', `${url}?${params.toString()}`, true);
+        xhr.setRequestHeader('Authorization', accessKey)
+        xhr.responseType = 'json';
+
+        xhr.onload = () => {
+            let results = xhr.response.results;
+            parseResults(results)
+        }
+        xhr.send();
+    }
+
+    function searchPromise() {
+        let value = queryElement.value;
+
+        const options = {
+            method: 'GET',
+            headers: {
+                'Authorization': accessKey
+            },
+        };
+
+        const params = new URLSearchParams({
+            query: value
+        });
+
+        fetch(`${url}?${params.toString()}`, options)
+            .then((res) => {
+                    (res.json())
+                        .then((results) => parseResults(results.results))
+                }
+            )
+    }
+
+    async function searchAwait() {
+        let value = queryElement.value;
+
+        const options = {
+            method: 'GET',
+            headers: {
+                'Authorization': accessKey
+            },
+        };
+
+        const params = new URLSearchParams({
+            query: value
+        });
+
+        let response = await fetch(`${url}?${params.toString()}`, options);
+        let json = await response.json();
+        parseResults(json.results)
+
+    }
+</script>
+</body>
