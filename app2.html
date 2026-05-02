@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardian News Explorer | Abdulrahman Salem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .search-container input {
+            flex: 1;
+        }
+
+        #results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .meta-info {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .loading-text {
+            text-align: center;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Guardian Explorer</h1>
+    <p>Real-time News Fetching via Guardian API</p>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home/CV</a></li>
+            <li><a href="myworks.html">My Works</a></li>
+            <li><a href="labs.html">Labs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <h2>Search Global News</h2>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search for topics (e.g., Technology, AI, Sports)..."
+                   class="contact-form">
+            <button id="searchBtn" class="modern-btn" style="width: auto; padding: 0 25px;">Search</button>
+        </div>
+
+        <div id="results-grid">
+            <p class="loading-text">Enter a keyword to start searching.</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Abdulrahman Salem bin Akeel. CPIT-405 Portfolio.</p>
+</footer>
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const resultsGrid = document.getElementById('results-grid');
+
+    const API_KEY = '86bb3c8e-a548-4b04-9da4-d5b620600e91';
+    const BASE_URL = 'https://content.guardianapis.com/search';
+
+    async function fetchNews(query) {
+        if (!query) return;
+
+        resultsGrid.innerHTML = '<p class="loading-text"><i class="fas fa-spinner fa-spin"></i> Fetching latest news...</p>';
+
+        try {
+            const response = await fetch(`${BASE_URL}?q=${encodeURIComponent(query)}&api-key=${API_KEY}`);
+            const data = await response.json();
+
+            if (data.response.status === "ok") {
+                displayResults(data.response.results);
+            } else {
+                throw new Error("API Response Error");
+            }
+        } catch (error) {
+            resultsGrid.innerHTML = `<p class="loading-text" style="color: #f85149;">Error: Unable to load news. Please try again later.</p>`;
+            console.error(error);
+        }
+    }
+
+    function displayResults(articles) {
+        resultsGrid.innerHTML = '';
+
+        if (articles.length === 0) {
+            resultsGrid.innerHTML = '<p class="loading-text">No results found for that query.</p>';
+            return;
+        }
+
+        articles.forEach(article => {
+            const card = document.createElement('article');
+            card.className = 'modern-card';
+
+            const pubDate = new Date(article.webPublicationDate).toLocaleDateString();
+
+            card.innerHTML = `
+                <div class="meta-info">${article.sectionName} | ${pubDate}</div>
+                <h3>${article.webTitle}</h3>
+                <div class="achievement-details">
+                    <a href="${article.webUrl}" target="_blank" class="button--primary modern-btn" style="text-decoration:none; margin-top:10px; font-size:0.8rem; padding:10px;">
+                        Read Full Article <i class="fas fa-external-link-alt" style="margin-left:5px;"></i>
+                    </a>
+                </div>
+            `;
+            resultsGrid.appendChild(card);
+        });
+    }
+
+    searchBtn.addEventListener('click', () => fetchNews(searchInput.value));
+
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') fetchNews(searchInput.value);
+    });
+</script>
+</body>
+</html>

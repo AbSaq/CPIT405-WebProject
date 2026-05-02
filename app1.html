@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureGen | Abdulrahman Salem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .vault-card {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .result-box {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px dashed var(--accent);
+            letter-spacing: 2px;
+            word-break: break-all;
+        }
+
+        .strength-meter {
+            height: 8px;
+            background: #30363d;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.4s ease;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: left;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .control-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>SecureGen Vault</h1>
+    <p>Client-Side Cryptographic Tool</p>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home/CV</a></li>
+            <li><a href="myworks.html">My Works</a></li>
+            <li><a href="labs.html">Labs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="vault-card modern-card">
+        <h2>Generate Secure Key</h2>
+        <div class="result-box" id="passDisplay">P4ssw0rd!_2026</div>
+
+        <div class="strength-meter">
+            <div id="strengthBar" class="strength-bar"></div>
+        </div>
+        <p id="strengthText" style="font-size: 0.8rem; margin-top: 5px; color: var(--text-muted);">Strength: Weak</p>
+
+        <div class="controls">
+            <div class="control-item">
+                <label>Length: <span id="lenVal">12</span></label>
+                <input type="range" id="length" min="8" max="32" value="12">
+            </div>
+            <div class="control-item">
+                <label>Include Symbols</label>
+                <input type="checkbox" id="symbols" checked>
+            </div>
+            <button id="genBtn" class="modern-btn" style="margin-top: 1rem; width: 100%;">
+                Generate Key <i class="fas fa-key"></i>
+            </button>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Abdulrahman Salem bin Akeel.</p>
+</footer>
+
+<script>
+    const passDisplay = document.getElementById('passDisplay');
+    const genBtn = document.getElementById('genBtn');
+    const lengthInput = document.getElementById('length');
+    const lenVal = document.getElementById('lenVal');
+    const symbolCheck = document.getElementById('symbols');
+    const strengthBar = document.getElementById('strengthBar');
+    const strengthText = document.getElementById('strengthText');
+
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
+
+    function generate() {
+        let currentCharset = charset;
+        if (symbolCheck.checked) currentCharset += symbols;
+
+        let result = "";
+        for (let i = 0; i < lengthInput.value; i++) {
+            result += currentCharset.charAt(Math.floor(Math.random() * currentCharset.length));
+        }
+        passDisplay.innerText = result;
+        analyze(result);
+    }
+
+    function analyze(pass) {
+        let score = 0;
+        if (pass.length > 12) score++;
+        if (/[A-Z]/.test(pass)) score++;
+        if (/[0-9]/.test(pass)) score++;
+        if (/[^A-Za-z0-9]/.test(pass)) score++;
+
+        const colors = ['#f85149', '#f0883e', '#dbab09', '#3fb950'];
+        const labels = ['Weak', 'Fair', 'Good', 'Strong'];
+
+        strengthBar.style.width = ((score + 1) / 4) * 100 + "%";
+        strengthBar.style.backgroundColor = colors[score] || colors[0];
+        strengthText.innerText = "Strength: " + (labels[score] || labels[0]);
+    }
+
+    lengthInput.oninput = () => {
+        lenVal.innerText = lengthInput.value;
+    };
+    genBtn.onclick = generate;
+
+    generate();
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Works | Abdulrahman Salem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>My Works</h1>
+    <p>Phase 2: JavaScript Applications Showcase</p>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home/CV</a></li>
+            <li><a href="myworks.html" class="active">My Works</a></li>
+            <li><a href="labs.html">Labs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="projects-showcase">
+        <h2>Featured Applications</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">
+            A showcase of interactive JavaScript applications developed for Phase 2 of the CPIT-405 Portfolio.
+        </p>
+
+        <div class="modern-grid">
+            <article class="modern-card">
+                <h3><i class="fas fa-shield-alt"></i> SecureGen Vault</h3>
+                <div class="achievement-details">
+                    <p style="margin-bottom: 1.5rem;">
+                        A client-side security tool that generates high-entropy cryptographic keys. It features a
+                        real-time strength analyzer using Regular Expressions (Regex) to evaluate password complexity
+                        and length.
+                    </p>
+                    <div class="skill-tags" style="margin-bottom: 1.5rem;">
+                        <span class="badge badge--done">DOM Logic</span>
+                        <span class="badge badge--done">Regex</span>
+                        <span class="badge badge--done">Algorithms</span>
+                    </div>
+                    <a href="app1.html" class="button--primary modern-btn"
+                       style="text-decoration: none; display: inline-flex;">
+                        <span>Open Vault</span>
+                        <i class="fas fa-key" style="margin-left: 10px;"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="modern-card">
+                <h3><i class="fas fa-globe-americas"></i> News Explorer</h3>
+                <div class="achievement-details">
+                    <p style="margin-bottom: 1.5rem;">
+                        An asynchronous news discovery platform integrated with The Guardian Content API. It handles
+                        live data fetching, dynamic search queries, and manages loading/error states for a seamless user
+                        experience.
+                    </p>
+                    <div class="skill-tags" style="margin-bottom: 1.5rem;">
+                        <span class="badge badge--done">Fetch API</span>
+                        <span class="badge badge--done">Async/Await</span>
+                        <span class="badge badge--done">JSON</span>
+                    </div>
+                    <a href="app2.html" class="button--primary modern-btn"
+                       style="text-decoration: none; display: inline-flex;">
+                        <span>Explore News</span>
+                        <i class="fas fa-search" style="margin-left: 10px;"></i>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Abdulrahman Salem bin Akeel. CPIT-405 Portfolio.</p>
+</footer>
+</body>
+</html>
